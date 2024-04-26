@@ -1,3 +1,4 @@
+<%@page import="boardServer.user.UserRequestDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -43,8 +44,16 @@
 	// Processing Page 에서는 사용자에게 보여주는 화면을 작성하지 않음 
 	// 요청에 대한 응답 처리를 작성 
 	// 1) 페이지 이동 처리 (흐름을 제어)
-	if(isValid)
-		response.sendRedirect("/mypage");
+	if(isValid) {
+		// 연동된 데이터 베이스로부터 
+		// 유저의 정보를 조회 하고,
+		// 중복에 대한 검증을 한 후에
+		// 가입 처리 후, 페이지 이동
+		
+		UserRequestDto userDto = null;
+		
+		response.sendRedirect("/login");
+	}
 	else 
 		response.sendRedirect("/join");
 
