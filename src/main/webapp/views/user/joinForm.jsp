@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="/resources/style/form.css">
 </head>
 <jsp:include page="/header"></jsp:include>
+<script src="/resources/script/validation-join.js"></script>
 <body>
 	<section id="root">
 		<h2>회원가입</h2>
