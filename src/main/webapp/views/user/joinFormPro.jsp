@@ -1,3 +1,5 @@
+<%@page import="boardServer.user.UserResponseDto"%>
+<%@page import="boardServer.user.UserDao"%>
 <%@page import="boardServer.user.UserRequestDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -50,9 +52,20 @@
 		// 중복에 대한 검증을 한 후에
 		// 가입 처리 후, 페이지 이동
 		
-		UserRequestDto userDto = null;
+		UserRequestDto userDto = new UserRequestDto(id, password, email, name, birth, gender, country, telecom, phone, agree);
 		
-		response.sendRedirect("/login");
+		UserDao userDao = UserDao.getInstance();
+		UserResponseDto user = userDao.createUser(userDto);
+		
+		if(user == null) {
+			// 실패
+			response.sendRedirect("/join");
+		} else {
+			// 성공
+			System.out.println("user : " + user);
+			
+			response.sendRedirect("/login");			
+		}
 	}
 	else 
 		response.sendRedirect("/join");
