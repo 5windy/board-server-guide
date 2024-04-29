@@ -6,7 +6,7 @@
 <jsp:include page="/header"></jsp:include>
 <body>
 	<section id="root">
-		<h1>환영합니다!</h1>
+		<h1>${user.name}님 환영합니다!</h1>
 	</section>
 </body>
 <jsp:include page="/footer"></jsp:include>
