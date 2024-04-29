@@ -73,6 +73,24 @@
 		<servlet-name>loginPro</servlet-name>
 		<url-pattern>/loginPro</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateUserForm</servlet-name>
+		<jsp-file>/views/user/updateUserForm.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateUserForm</servlet-name>
+		<url-pattern>/updateUser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>updateUserFormPro</servlet-name>
+		<jsp-file>/views/user/updateUserFormPro.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>updateUserFormPro</servlet-name>
+		<url-pattern>/updateUserPro</url-pattern>
+	</servlet-mapping>
 
 
 </web-app>
