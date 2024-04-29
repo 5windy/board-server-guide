@@ -14,7 +14,7 @@ public class UserRequestDto {
 	private boolean agree;
 	
 	public UserRequestDto(String id, String password, String name, String birth, String gender, String country,
-			String telecom, String phone, boolean agree) {
+			String telecom, String phone, String agree) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -24,10 +24,10 @@ public class UserRequestDto {
 		this.country = country;
 		this.telecom = telecom;
 		this.phone = phone;
-		this.agree = agree;
+		this.agree = agree.equals("on") ? true : false;
 	}
 	public UserRequestDto(String id, String password, String email, String name, String birth, String gender,
-			String country, String telecom, String phone, boolean agree) {
+			String country, String telecom, String phone, String agree) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -38,7 +38,7 @@ public class UserRequestDto {
 		this.country = country;
 		this.telecom = telecom;
 		this.phone = phone;
-		this.agree = agree;
+		this.agree = agree.equals("on") ? true : false;
 	}
 	public String getId() {
 		return id;
