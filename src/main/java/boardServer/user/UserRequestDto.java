@@ -13,6 +13,10 @@ public class UserRequestDto {
 	private String phone;
 	private boolean agree;
 	
+	public UserRequestDto() {
+		
+	}
+	
 	public UserRequestDto(String id, String password, String name, String birth, String gender, String country,
 			String telecom, String phone, String agree) {
 		super();

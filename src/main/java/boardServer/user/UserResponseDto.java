@@ -25,6 +25,18 @@ public class UserResponseDto {
 		this.phone = phone;
 		this.agree = agree;
 	}
+	
+	public UserResponseDto(User user) {
+		this.id = user.getId();
+		this.email = user.getEmail();
+		this.name = user.getName();
+		this.birth = user.getBirth();
+		this.gender = user.getGender();
+		this.country = user.getCountry();
+		this.telecom = user.getTelecom();
+		this.phone = user.getPhone();
+		this.agree = user.isAgree();
+	}
 
 	public String getId() {
 		return id;
@@ -96,6 +108,11 @@ public class UserResponseDto {
 
 	public void setAgree(boolean agree) {
 		this.agree = agree;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("%s/%s/%s", this.id, this.name, this.email);
 	}
 
 }

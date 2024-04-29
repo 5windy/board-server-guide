@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,13 +81,160 @@ public class UserDao {
 		return list;
 	}
 	
-	public UserResponseDto createUser() {
+	public UserResponseDto findUserByIdAndPassword(String id, String password) {
+		UserResponseDto user = null;
+		
+		try {
+			String sql = "SELECT id, email, name, birth, gender, country, telecom, phone, agree FROM users WHERE id=? AND password=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, password);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String email = rs.getString(2);
+				String name = rs.getString(3);
+				String birth = rs.getString(4);
+				String gender = rs.getString(5);
+				String country = rs.getString(6);
+				String telecom = rs.getString(7);
+				String phone = rs.getString(8);
+				boolean agree = rs.getBoolean(9);
+				
+				user = new UserResponseDto(id, email, name, birth, gender, country, telecom, phone, agree);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
+	
+	public UserResponseDto createUser(UserRequestDto userDto) {
 		// sql 구문을 쿼리하고 
-		// 실행한 결과 (ResultSet)을 가져와 
 		// 성공을 했다면 -> UserResponseDto 객체 생성하여 
 		// 반환 
 		
+		try {
+			String sql = "INSERT INTO users(id, password, email, name, birth, gender, country, telecom, phone, agree) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			// sql 구문에 맵핑할 값 설정 
+			pstmt.setString(1, userDto.getId());
+			pstmt.setString(2, userDto.getPassword());
+			
+			String email = userDto.getEmail().equals("") ? null : userDto.getEmail();
+			pstmt.setString(3, email);
+			
+			pstmt.setString(4, userDto.getName());
+			pstmt.setString(5, userDto.getBirth());
+			pstmt.setString(6, userDto.getGender());
+			pstmt.setString(7, userDto.getCountry());
+			pstmt.setString(8, userDto.getTelecom());
+			pstmt.setString(9, userDto.getPhone());
+			pstmt.setBoolean(10, userDto.isAgree());
+			
+			pstmt.execute();
+			
+			return findUserByIdAndPassword(userDto.getId(), userDto.getPassword());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
-
+	
+	
+	public UserResponseDto updateUserPassword(UserRequestDto userDto, String newPassword) {
+		UserResponseDto user = null;
+		
+		if(newPassword == null || newPassword.equals("")) {
+			return user;
+		}
+		
+		try {
+			String sql = "UPDATE users SET password=? WHERE id=? AND password=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newPassword);
+			pstmt.setString(2, userDto.getId());
+			pstmt.setString(3, userDto.getPassword());
+			
+			pstmt.execute();
+			
+			User userVo = findUserById(userDto.getId());
+			user = new UserResponseDto(userVo);
+			return user;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return user;
+	}
+	
+	public UserResponseDto updateUserEmail(UserRequestDto userDto) {
+		
+		String sql = "UPDATE users SET email=? WHERE id=? AND password=?";
+		
+		return null;
+		
+	}
+	
+	public UserResponseDto updateUserPhone(UserRequestDto userDto) {
+		
+		String sql = "UPDATE users SET telecom=?, phone=? WHERE id=? AND password=?";
+		
+		return null;
+	}
+	
+	public boolean deleteUser(UserRequestDto userDto) {
+		try {
+			String sql = "DELETE FROM users WHERE id=? AND password=?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userDto.getId());
+			pstmt.setString(2, userDto.getPassword());
+			
+			pstmt.execute();
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	private User findUserById(String id) {
+		User user = null;
+		
+		try {
+			String sql = "SELECT id, email, name, birth, gender, country, telecom, phone, agree, reg_date, mod_date FROM users WHERE id=?";
+			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				String email = rs.getString(2);
+				String name = rs.getString(3);
+				String birth = rs.getString(4);
+				String gender = rs.getString(5);
+				String country = rs.getString(6);
+				String telecom = rs.getString(7);
+				String phone = rs.getString(8);
+				boolean agree = rs.getBoolean(9);
+				Timestamp regDate = rs.getTimestamp(10);
+				Timestamp modDate = rs.getTimestamp(11);
+				
+				user = new User(id, email, name, birth, gender, country, telecom, phone, agree, regDate, modDate);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
+	}
 }
