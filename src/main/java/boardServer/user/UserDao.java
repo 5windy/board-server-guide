@@ -166,30 +166,53 @@ public class UserDao {
 			User userVo = findUserById(userDto.getId());
 			user = new UserResponseDto(userVo);
 			return user;
-			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return user;
 	}
 	
 	public UserResponseDto updateUserEmail(UserRequestDto userDto) {
-		
-		String sql = "UPDATE users SET email=? WHERE id=? AND password=?";
-		
-		return null;
-		
+		UserResponseDto user = null;
+		try {
+			String sql = "UPDATE users SET email=? WHERE id=? AND password=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userDto.getEmail());
+			pstmt.setString(2, userDto.getId());
+			pstmt.setString(3, userDto.getPassword());
+			
+			pstmt.execute();
+			
+			user = findUserByIdAndPassword(userDto.getId(), userDto.getPassword());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	public UserResponseDto updateUserPhone(UserRequestDto userDto) {
-		
-		String sql = "UPDATE users SET telecom=?, phone=? WHERE id=? AND password=?";
-		
-		return null;
+		UserResponseDto user = null;
+		try {
+			String sql = "UPDATE users SET telecom=?, phone=? WHERE id=? AND password=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userDto.getTelecom());
+			pstmt.setString(2, userDto.getPhone());
+			pstmt.setString(3, userDto.getId());
+			pstmt.setString(4, userDto.getPassword());
+			
+			pstmt.execute();
+			
+			user = findUserByIdAndPassword(userDto.getId(), userDto.getPassword());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return user;
 	}
 	
 	public boolean deleteUser(UserRequestDto userDto) {
+		if(findUserByIdAndPassword(userDto.getId(), userDto.getPassword()) == null)
+			return false;
+		
 		try {
 			String sql = "DELETE FROM users WHERE id=? AND password=?";
 			pstmt = conn.prepareStatement(sql);
