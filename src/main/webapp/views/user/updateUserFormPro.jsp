@@ -33,7 +33,7 @@ if(userDao.findUserByIdAndPassword(user.getId(), password) != null) {
 	String telecom = request.getParameter("telecom");
 	String phone = request.getParameter("phone");
 	
-	if(!newPassword.equals("") && newPassword.equals(password)) {
+	if(!newPassword.equals("") && !newPassword.equals(password)) {
 		user = userDao.updateUserPassword(userDto, newPassword);
 	}
 	
