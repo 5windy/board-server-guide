@@ -1,16 +1,16 @@
-<%@page import="boardServer.user.UserResponseDto"%>
+<%@page import="boardServer.user.model.UserResponseDto"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 </head>
-<jsp:include page="/header"></jsp:include>
+<c:import url="/header" />
 <body>
-	<%
-	if(session.getAttribute("user") == null)
-		response.sendRedirect("/login");
-	%>
+	<c:if test="${empty user }">
+		<c:redirect url="/login" />
+	</c:if>
 	<section id="root">
 		<h1>${user.name}님환영합니다!</h1>
 
@@ -18,5 +18,5 @@
 		<button onclick="location.href='/deleteUserForm'">회원 탈퇴</button>
 	</section>
 </body>
-<jsp:include page="/footer"></jsp:include>
+<c:import url="/footer" />
 </html>

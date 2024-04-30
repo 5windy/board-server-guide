@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,17 +14,14 @@
 	<header>
 		<h1><a href="/">My Board</a></h1>
 		
-		<%
-		if(session.getAttribute("user") == null) {
-		%>
-		<button onclick="location.href='/login'">로그인</button>
-		<%
-		} else {
-		%>
-		<button onclick="location.href='/logoutPro'">로그아웃</button>
-		<%
-		}
-		%>
+		<c:choose>
+			<c:when test="${not empty user }">
+				<button onclick="location.href='/logout'">로그아웃</button>
+			</c:when>
+			<c:otherwise>
+				<button onclick="location.href='/login'">로그인</button>
+			</c:otherwise>
+		</c:choose>
 	</header>
 </body>
 </html>
