@@ -91,6 +91,31 @@
 		<servlet-name>updateUserFormPro</servlet-name>
 		<url-pattern>/updateUserPro</url-pattern>
 	</servlet-mapping>
-
-
+	
+	<servlet>
+		<servlet-name>logoutPro</servlet-name>
+		<jsp-file>/views/user/logoutPro.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>logoutPro</servlet-name>
+		<url-pattern>/logoutPro</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>deleteUserForm</servlet-name>
+		<jsp-file>/views/user/deleteUserForm.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteUserForm</servlet-name>
+		<url-pattern>/deleteUserForm</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>deleteUserFormPro</servlet-name>
+		<jsp-file>/views/user/deleteUserFormPro.jsp</jsp-file>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteUserFormPro</servlet-name>
+		<url-pattern>/deleteUserFormPro</url-pattern>
+	</servlet-mapping>
 </web-app>
