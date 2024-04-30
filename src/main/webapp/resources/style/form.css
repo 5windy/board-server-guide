@@ -15,13 +15,13 @@ form select
 
 form input[type="text"], 
 form input[type="password"],
-form > div:nth-last-child(3)
+#agree-container
 {
 	width: 400px;
 	padding: 12px;
 }
 
-form > div:nth-last-child(3)
+#agree-container
 {
 	border-radius: 10px;
 	border: solid 1px lightgrey;
