@@ -12,7 +12,19 @@
 </head>
 <body>
 	<header>
-		<h1>My Board</h1>
+		<h1><a href="/">My Board</a></h1>
+		
+		<%
+		if(session.getAttribute("user") == null) {
+		%>
+		<button onclick="location.href='/login'">로그인</button>
+		<%
+		} else {
+		%>
+		<button onclick="location.href='/logoutPro'">로그아웃</button>
+		<%
+		}
+		%>
 	</header>
 </body>
 </html>

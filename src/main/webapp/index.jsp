@@ -6,6 +6,8 @@
 <jsp:include page="/header"></jsp:include>
 <body>
 	<section id="root">
+	
+	
 	</section>
 </body>
 <jsp:include page="/footer"></jsp:include>
