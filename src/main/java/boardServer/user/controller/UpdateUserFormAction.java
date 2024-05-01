@@ -65,7 +65,7 @@ public class UpdateUserFormAction extends HttpServlet {
 				user = userDao.updateUserPassword(userDto, newPassword);
 			}
 			
-			if(user.getEmail() != null && !user.getEmail().equals(email)) {
+			if((user.getEmail() != null && !user.getEmail().equals(email)) || (user.getEmail() == null && !email.equals(""))) {
 				userDto.setEmail(email);
 				user = userDao.updateUserEmail(userDto);
 			}
