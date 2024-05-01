@@ -65,6 +65,8 @@ public class UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
 		}
 		return list;
 	}
@@ -99,12 +101,18 @@ public class UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
 		}
 		return user;
 	}
 
 	public boolean userExists(UserRequestDto userDto) {
 		return findUserByIdAndPassword(userDto.getId(), userDto.getPassword()) != null;
+	}
+	
+	public boolean userExists(String id) {
+		return findUserById(id) != null;
 	}
 
 	public UserResponseDto createUser(UserRequestDto userDto) {
@@ -140,6 +148,8 @@ public class UserDao {
 			return findUserByIdAndPassword(userDto.getId(), userDto.getPassword());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
 		}
 		return null;
 	}
@@ -171,6 +181,8 @@ public class UserDao {
 			return user;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
 		}
 		return user;
 	}
@@ -195,6 +207,8 @@ public class UserDao {
 			user = findUserByIdAndPassword(userDto.getId(), userDto.getPassword());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
 		}
 		return user;
 	}
@@ -220,6 +234,8 @@ public class UserDao {
 			user = findUserByIdAndPassword(userDto.getId(), userDto.getPassword());
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
 		}
 		return user;
 	}
@@ -239,6 +255,8 @@ public class UserDao {
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt);
 		}
 
 		return false;
@@ -273,6 +291,8 @@ public class UserDao {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DBManager.close(conn, pstmt, rs);
 		}
 		return user;
 	}
